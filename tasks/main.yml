@@ -10,10 +10,11 @@
 #      - qt-creator: latest
 #      - firefox: latest
     state: latest
+    use_backend: yum
   when: "ansible_os_family == 'RedHat'"
 
 - name: Install developer productivity gui packages (Debian)
-  yum: 
+  apt: 
     name:
       - kdiff3
 #      - tortoisehg
