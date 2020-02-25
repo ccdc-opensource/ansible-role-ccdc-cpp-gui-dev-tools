@@ -1,0 +1,14 @@
+---
+  - name: Install developer productivity GUI packages
+    yum: 
+      name:
+        - "@X Window System"
+        - xeyes # for testing
+        - kdiff3
+  #      - tortoisehg
+  #      - vscode
+  #      - qt-creator: latest
+  #      - firefox: latest
+      state: latest
+      use_backend: yum
+    become: yes

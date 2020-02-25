@@ -1,0 +1,11 @@
+---
+  - name: Install developer productivity gui packages
+    apt: 
+      name:
+        - kdiff3
+  #      - tortoisehg
+  #      - vscode
+  #      - qt-creator: latest
+  #      - firefox: latest
+      state: latest
+    become: yes

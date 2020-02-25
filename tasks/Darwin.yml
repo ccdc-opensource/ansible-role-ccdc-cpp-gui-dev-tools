@@ -1,0 +1,12 @@
+---
+  - name: Install developer productivity gui packages
+    homebrew:
+      name:
+        - 'm-cli'
+        - clang-format
+        - midnight-commander
+        - sqldiff
+        - sqlite
+        - ctags
+        - screen
+      state: present

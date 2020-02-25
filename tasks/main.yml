@@ -1,47 +1,8 @@
 ---
-- name: Install developer productivity gui packages (Centos)
-  yum: 
-    name:
-      - "@X Window System"
-      - xeyes # for testing
-      - kdiff3
-#      - tortoisehg
-#      - vscode
-#      - qt-creator: latest
-#      - firefox: latest
-    state: latest
-    use_backend: yum
-  when: "ansible_os_family == 'RedHat'"
-  become: yes
-
-- name: Install developer productivity gui packages (Debian)
-  apt: 
-    name:
-      - kdiff3
-#      - tortoisehg
-#      - vscode
-#      - qt-creator: latest
-#      - firefox: latest
-    state: latest
-  when: "ansible_os_family == 'Debian'"
-  become: yes
-
-- name: Install developer productivity gui packages (MacOS)
-  homebrew:
-    name:
-      - 'm-cli'
-      - clang-format
-      - midnight-commander
-      - sqldiff
-      - sqlite
-      - ctags
-      - screen
-    state: present
-  when: "ansible_os_family == 'Darwin'"
-
-- name: developer productivity gui packages (windows)
-  win_chocolatey:
-    name: 
-      - mc
-    state: present
-  when: "ansible_os_family == 'Windows'"
+  - name: Set up GUI developer tools
+    include_tasks: "{{ item }}"
+    with_first_found:
+      - "{{ ansible_os_family }}-{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+      - "{{ ansible_os_family }}-{{ ansible_distribution }}.yml"
+      - "{{ ansible_os_family }}.yml"
+      - "{{ ansible_system }}.yml"

@@ -1,0 +1,6 @@
+---
+  - name: developer productivity gui packages (windows)
+    win_chocolatey:
+      name: 
+        - mc
+      state: present
