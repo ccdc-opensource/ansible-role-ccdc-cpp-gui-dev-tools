@@ -1,12 +1,6 @@
 ---
-  - name: Install developer productivity gui packages
-    homebrew:
+  - name: Install Visual Studio Code
+    homebrew_cask:
       name:
-        - 'm-cli'
-        - clang-format
-        - midnight-commander
-        - sqldiff
-        - sqlite
-        - ctags
-        - screen
+        - visual-studio-code
       state: present

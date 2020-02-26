@@ -1,11 +1,21 @@
 ---
+  - name: Add Microsoft deb repo key
+    apt_key:
+      file: https://packages.microsoft.com/keys/microsoft.asc
+      state: present
+    become: yes
+
+  - name: Add Microsoft VS Code repository
+    apt_repository:
+      repo: https://packages.microsoft.com/repos/vscode stable main
+      state: present
+    become: yes
+
   - name: Install developer productivity gui packages
     apt: 
       name:
         - kdiff3
-  #      - tortoisehg
-  #      - vscode
-  #      - qt-creator: latest
-  #      - firefox: latest
+        - code
+        - firefox
       state: latest
     become: yes

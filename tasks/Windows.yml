@@ -1,6 +1,8 @@
 ---
-  - name: developer productivity gui packages (windows)
+  - name: Install GUI developer tools
     win_chocolatey:
       name: 
-        - mc
+        - araxismerge
+        - vscode
+        - tortoisehg
       state: present

@@ -1,14 +1,22 @@
 ---
+  - name: Add Microsoft VS Code repository
+    yum_repository:
+      name: vscode
+      description: Microsoft VS Code repo
+      baseurl: https://packages.microsoft.com/yumrepos/vscode
+      gpgcheck: yes
+      gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    become: yes
+
   - name: Install developer productivity GUI packages
     yum: 
       name:
         - "@X Window System"
         - xeyes # for testing
         - kdiff3
-  #      - tortoisehg
-  #      - vscode
-  #      - qt-creator: latest
-  #      - firefox: latest
+        - code
+        - tortoisehg
+        - firefox
       state: latest
       use_backend: yum
     become: yes
