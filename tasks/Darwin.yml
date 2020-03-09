@@ -1,6 +1,15 @@
 ---
-  - name: Install Visual Studio Code
-    homebrew_cask:
-      name:
-        - visual-studio-code
-      state: present
+- name: Install Gui tools from Homebrew cask
+  homebrew_cask:
+    name:
+      - visual-studio-code
+      - firefox
+      - araxis-merge
+      - tortoisehg
+    state: present
+
+- name: Install Gui tools from Homebrew
+  homebrew:
+    name:
+      - mitmproxy
+    state: present
