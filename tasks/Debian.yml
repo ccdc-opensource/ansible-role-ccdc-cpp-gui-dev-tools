@@ -1,21 +1,52 @@
 ---
-  - name: Add Microsoft deb repo key
-    apt_key:
-      file: https://packages.microsoft.com/keys/microsoft.asc
-      state: present
-    become: yes
+- name: Add Microsoft deb repo key
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+  become: yes
 
-  - name: Add Microsoft VS Code repository
-    apt_repository:
-      repo: https://packages.microsoft.com/repos/vscode stable main
-      state: present
-    become: yes
+- name: Add Microsoft VS Code repository
+  apt_repository:
+    repo: deb https://packages.microsoft.com/repos/vscode stable main
+    state: present
+  become: yes
 
-  - name: Install developer productivity gui packages
-    apt: 
-      name:
-        - kdiff3
-        - code
-        - firefox
-      state: latest
-    become: yes
+- name: Install developer productivity gui packages
+  apt:
+    name:
+      - kdiff3
+      - code
+      - firefox
+      - build-essential
+      - ubuntu-desktop
+    state: latest
+  become: yes
+
+- name: Set vagrant user for autologin
+  ini_file:
+    path: /etc/gdm/custom.conf
+    section: daemon
+    option: AutomaticLogin
+    value: vagrant
+    mode: '0644'
+  become: yes
+
+- name: enable autologin
+  ini_file:
+    path: /etc/gdm/custom.conf
+    section: daemon
+    option: AutomaticLoginEnable
+    value: 'True'
+    mode: '0644'
+  become: yes
+
+- name: set graphic boot as default boot target
+  file: path=/etc/systemd/system/default.target src=/lib/systemd/system/graphical.target state=link
+  become: yes
+
+- name: Enable and start GDM
+  systemd:
+    name: gdm
+    state: started
+    enabled: yes
+  become: yes

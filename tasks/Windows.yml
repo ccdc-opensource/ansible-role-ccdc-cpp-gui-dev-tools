@@ -1,8 +1,10 @@
 ---
-  - name: Install GUI developer tools
-    win_chocolatey:
-      name: 
-        - araxismerge
-        - vscode
-        - tortoisehg
-      state: present
+- name: Install GUI developer tools
+  win_chocolatey:
+    name:
+      - araxismerge
+      - vscode
+      - tortoisehg
+      - firefox
+      - fiddler
+    state: present
