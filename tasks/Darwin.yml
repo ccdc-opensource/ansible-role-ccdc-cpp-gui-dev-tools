@@ -6,6 +6,7 @@
       - firefox
       - araxis-merge
       - tortoisehg
+      - pycharm
     state: present
 
 - name: Install Gui tools from Homebrew
