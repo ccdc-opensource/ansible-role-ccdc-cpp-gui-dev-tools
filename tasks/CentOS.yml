@@ -23,6 +23,12 @@
     use_backend: yum
   become: yes
 
+- name: Start and enable snapd
+  systemd:
+    name: snapd
+    state: started
+    enabled: yes
+
 - name: Install GUI development tools from snap
   snap:
     name:
