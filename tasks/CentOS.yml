@@ -23,6 +23,13 @@
     use_backend: yum
   become: yes
 
+- name: Create symlink at /snap/ so classic confinement snaps can be installed
+  file:
+    src: /var/lib/snapd/snap
+    dest: /snap
+    state: link
+  become: yes
+
 - name: Start and enable snapd
   systemd:
     name: snapd
