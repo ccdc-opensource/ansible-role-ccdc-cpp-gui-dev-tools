@@ -7,5 +7,5 @@
       - tortoisehg
       - firefox
       - fiddler
-      - Pycharm
+      - pycharm-community
     state: present
