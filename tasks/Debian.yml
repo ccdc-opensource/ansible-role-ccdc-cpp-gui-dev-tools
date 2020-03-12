@@ -28,6 +28,7 @@
     name:
       - pycharm-community
     classic: yes
+  become: yes
 
 - name: Set vagrant user for autologin
   ini_file:

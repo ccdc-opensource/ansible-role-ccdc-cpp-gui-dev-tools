@@ -28,12 +28,14 @@
     name: snapd
     state: started
     enabled: yes
+  become: yes
 
 - name: Install GUI development tools from snap
   snap:
     name:
       - pycharm-community
     classic: yes
+  become: yes
 
 - name: Set vagrant user for autologin
   ini_file:
