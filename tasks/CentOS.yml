@@ -8,19 +8,40 @@
     gpgkey: https://packages.microsoft.com/keys/microsoft.asc
   become: yes
 
-- name: Install developer productivity GUI packages
+- name: Install desktop environment and GUI development tools
   yum:
     name:
       - "@^gnome-desktop-environment"
       - "@Development Tools"
-      - xeyes # for testing
       - kdiff3
       - code
       - tortoisehg
       - sclo-git25-git-all
       - firefox
+      - snapd
     state: latest
     use_backend: yum
+  become: yes
+
+- name: Create symlink at /snap/ so classic confinement snaps can be installed
+  file:
+    src: /var/lib/snapd/snap
+    dest: /snap
+    state: link
+  become: yes
+
+- name: Start and enable snapd
+  systemd:
+    name: snapd
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Install GUI development tools from snap
+  snap:
+    name:
+      - pycharm-community
+    classic: yes
   become: yes
 
 - name: Set vagrant user for autologin
@@ -32,7 +53,7 @@
     mode: '0644'
   become: yes
 
-- name: enable autologin
+- name: Enable autologin
   ini_file:
     path: /etc/gdm/custom.conf
     section: daemon
@@ -41,7 +62,7 @@
     mode: '0644'
   become: yes
 
-- name: set graphic boot as default boot target
+- name: Set GUI boot as default boot target
   file: path=/etc/systemd/system/default.target src=/lib/systemd/system/graphical.target state=link
   become: yes
 
