@@ -13,7 +13,7 @@
     name:
       - "@^gnome-desktop-environment"
       - "@Development Tools"
-      - kdiff3
+      - meld
       - code
       - tortoisehg
       - sclo-git25-git-all
@@ -79,3 +79,10 @@
     value: '524288'
     state: present
   become: yes
+
+- name: Set meld as default hg diff tool
+  ini_file:
+    path: "/etc/mercurial/hgrc.d/01-ccdc-default.rc"
+    section: ui
+    option: merge
+    value: meld
