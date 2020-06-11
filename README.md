@@ -6,14 +6,32 @@ Applying this role will set up a range of GUI development tools on the machine f
 
 ### Linux
 
-- kdiff3
-- X11
-- xeyes (for testing X11)
+- meld
+- GNOME desktop environment
+- Visual Studio Code
+- TortoiseHg
+- a recent version of Git
+- Firefox
+- PyCharm Community Edition
 
 ### macOS
 
+- meld
+- Araxis Merge
+- Visual Studio Code
+- TortoiseHg
+- Firefox
+- PyCharm Community Edition
 
 ### Windows
+
+- meld
+- Araxis Merge
+- Visual Studio Code
+- TortoiseHg
+- Firefox
+- Fiddler
+- PyCharm Community Edition
 
 ## Requirements
 

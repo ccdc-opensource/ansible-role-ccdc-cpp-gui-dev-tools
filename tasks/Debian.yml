@@ -14,7 +14,7 @@
 - name: Install developer productivity gui packages
   apt:
     name:
-      - kdiff3
+      - meld
       - code
       - firefox
       - build-essential
@@ -58,3 +58,10 @@
     state: started
     enabled: yes
   become: yes
+
+- name: Set meld as default hg diff tool
+  ini_file:
+    path: "/etc/mercurial/hgrc.d/01-ccdc-default.rc"
+    section: ui
+    option: merge
+    value: meld
