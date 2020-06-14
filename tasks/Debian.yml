@@ -65,3 +65,4 @@
     section: ui
     option: merge
     value: meld
+  become: yes
