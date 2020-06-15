@@ -12,7 +12,8 @@
     state: present
 
 - name: Set meld as default hg diff tool
-  win_lineinfile:
-    path: "{{ ansible_facts.env['ProgramData'] }}/Mercurial/hgrc.d/01-ccdc-default.rc"
-    regexp: "(^merge\s*=)"
-    line: "$1 meld"
+  win_copy:
+    src: 02-use-meld.rc
+    dest: "{{ ansible_facts.env['ProgramData'] }}/Mercurial/hgrc.d/01-ccdc-default.rc"
+  become: yes
+
