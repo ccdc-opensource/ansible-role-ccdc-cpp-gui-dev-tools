@@ -7,9 +7,10 @@ visual_studio_extensions: [
     # Visual Studio Live Share
     ms-vsliveshare.vsliveshare-pack,
 
-    # C++
+    # C++/C#
     ms-vscode.cpptools,
     ms-vscode.cmake-tools,
+    ms-dotnettools.csharp,
 
     # Python
     ms-python.python,
@@ -19,6 +20,7 @@ visual_studio_extensions: [
     littlefoxteam.vscode-python-test-adapter,
 
     # Web development
+    dbaeumer.vscode-eslint,
     jawandarajbir.react-vscode-extension-pack,
     ms-vscode.node-debug2,
     esbenp.prettier-vscode,
