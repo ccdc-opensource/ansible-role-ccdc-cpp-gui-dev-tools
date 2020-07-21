@@ -10,6 +10,12 @@
       - pycharm-ce
     state: present
 
+- name: Install VS Code extensions
+  shell: code --install-extension {{ extension }}
+  loop: "{{ visual_studio_extensions }}"
+  loop_control:
+    loop_var: extension
+
 - name: Install Gui tools from Homebrew
   homebrew:
     name:

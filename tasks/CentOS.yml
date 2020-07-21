@@ -23,6 +23,12 @@
     use_backend: yum
   become: yes
 
+- name: Install VS Code extensions
+  shell: code --install-extension {{ extension }}
+  loop: "{{ visual_studio_extensions }}"
+  loop_control:
+    loop_var: extension
+
 - name: Create symlink at /snap/ so classic confinement snaps can be installed
   file:
     src: /var/lib/snapd/snap
@@ -50,7 +56,7 @@
     section: daemon
     option: AutomaticLogin
     value: vagrant
-    mode: '0644'
+    mode: "0644"
   become: yes
 
 - name: Enable autologin
@@ -58,8 +64,8 @@
     path: /etc/gdm/custom.conf
     section: daemon
     option: AutomaticLoginEnable
-    value: 'True'
-    mode: '0644'
+    value: "True"
+    mode: "0644"
   become: yes
 
 - name: Set GUI boot as default boot target
@@ -76,7 +82,7 @@
 - name: Increase number of files inotify can look for so that vscode can cope with our megarepo
   sysctl:
     name: fs.inotify.max_user_watches
-    value: '524288'
+    value: "524288"
     state: present
   become: yes
 

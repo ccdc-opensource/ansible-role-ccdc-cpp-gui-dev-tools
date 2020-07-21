@@ -11,9 +11,14 @@
       - pycharm-community
     state: present
 
+- name: Install VS Code extensions
+  win_shell: code --install-extension {{ extension }}
+  loop: "{{ visual_studio_extensions }}"
+  loop_control:
+    loop_var: extension
+
 - name: Set meld as default hg diff tool
   win_copy:
     src: 02-use-meld.rc
     dest: "{{ ansible_facts.env['ProgramData'] }}/Mercurial/hgrc.d/01-ccdc-default.rc"
   become: yes
-
