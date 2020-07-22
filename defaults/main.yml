@@ -14,10 +14,13 @@ visual_studio_extensions: [
 
     # Python
     ms-python.python,
-    ms-vscode.pylance,
+    ms-python.vscode-pylance,
     njpwerner.autodocstring,
     himanoa.python-autopep8,
     littlefoxteam.vscode-python-test-adapter,
+
+    # Docker
+    ms-azuretools.vscode-docker,
 
     # Web development
     dbaeumer.vscode-eslint,
