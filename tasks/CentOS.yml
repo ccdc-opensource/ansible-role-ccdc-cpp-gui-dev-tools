@@ -18,30 +18,22 @@
       - tortoisehg
       - sclo-git25-git-all
       - firefox
-      - snapd
+      - flatpak
     state: latest
     use_backend: yum
   become: yes
 
-- name: Create symlink at /snap/ so classic confinement snaps can be installed
-  file:
-    src: /var/lib/snapd/snap
-    dest: /snap
-    state: link
+- name: Add the flathub flatpak repository remote
+  flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
   become: yes
-
-- name: Start and enable snapd
-  systemd:
-    name: snapd
-    state: started
-    enabled: yes
-  become: yes
-
-- name: Install GUI development tools from snap
-  snap:
-    name:
-      - pycharm-community
-    classic: yes
+    
+- name: Install the pycharm community flatpak system-wide
+  flatpak:
+    name: com.jetbrains.PyCharm-Community
+    state: present
   become: yes
 
 - name: Set vagrant user for autologin
