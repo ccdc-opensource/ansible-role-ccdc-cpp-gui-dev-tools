@@ -15,6 +15,7 @@
   loop: "{{ visual_studio_extensions }}"
   loop_control:
     loop_var: extension
+  ignore_errors: true
 
 - name: Install Gui tools from Homebrew
   homebrew:

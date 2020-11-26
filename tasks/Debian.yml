@@ -27,6 +27,7 @@
   loop: "{{ visual_studio_extensions }}"
   loop_control:
     loop_var: extension
+  ignore_errors: true
 
 # Ubuntu 16.04 onwards comes with snap installed by default
 - name: Install developer productivity GUI tools from snap

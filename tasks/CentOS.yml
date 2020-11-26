@@ -28,6 +28,7 @@
   loop: "{{ visual_studio_extensions }}"
   loop_control:
     loop_var: extension
+  ignore_errors: true
 
 - name: Create symlink at /snap/ so classic confinement snaps can be installed
   file:
