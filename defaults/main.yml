@@ -27,7 +27,6 @@ visual_studio_extensions: [
     jawandarajbir.react-vscode-extension-pack,
     ms-vscode.node-debug2,
     esbenp.prettier-vscode,
-    joelday.docthis,
 
     # Testing support
     alexkrechik.cucumberautocomplete,
