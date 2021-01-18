@@ -11,7 +11,7 @@
     state: present
 
 - name: Install VS Code extensions
-  shell: code --install-extension {{ extension }}
+  shell: /usr/local/bin/code --install-extension {{ extension }}
   loop: "{{ visual_studio_extensions }}"
   loop_control:
     loop_var: extension
