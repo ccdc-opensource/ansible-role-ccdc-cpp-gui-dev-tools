@@ -14,13 +14,30 @@
       - "@^gnome-desktop-environment"
       - "@Development Tools"
       - meld
-      - code
       - tortoisehg
       - sclo-git25-git-all
       - firefox
       - flatpak
+      - yum-plugin-versionlock
     state: latest
     use_backend: yum
+  become: yes
+
+# Please refer to this issue if you want to have a more up to date visual studio code on 
+# the very obsolete centos 7
+# https://github.com/microsoft/vscode/issues/115784
+- name: Install latest version of visual studio code that works with centos 7
+  yum:
+    name:
+      - code-1.52.1
+    state: present
+    use_backend: yum
+  become: yes
+
+- name: lock the visual studio code version until something happens
+  community.general.yum_versionlock:
+    state: present
+    name: code
   become: yes
 
 - name: Install VS Code extensions
