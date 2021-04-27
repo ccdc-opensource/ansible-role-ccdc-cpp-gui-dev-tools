@@ -1,33 +1,21 @@
 ---
-visual_studio_extensions: [
-    # Git/Mercurial
-    eamodio.gitlens,
-    mrcrowl.hg,
+visual_studio_extensions:
+  # Git/Mercurial
+  - eamodio.gitlens
+  - mrcrowl.hg
 
-    # Visual Studio Live Share
-    ms-vsliveshare.vsliveshare-pack,
+  # C++
+  - ms-vscode.cpptools
+  - timzoet.clangtidygui
+  - notskm.clang-tidy
+  - xaver.clang-format
 
-    # C++/C#
-    ms-vscode.cpptools,
-    ms-vscode.cmake-tools,
-    ms-dotnettools.csharp,
+  # CMake
+  - ms-vscode.cmake-tools
 
-    # Python
-    ms-python.python,
-    ms-python.vscode-pylance,
-    njpwerner.autodocstring,
-    himanoa.python-autopep8,
-    littlefoxteam.vscode-python-test-adapter,
-
-    # Docker
-    ms-azuretools.vscode-docker,
-
-    # Web development
-    dbaeumer.vscode-eslint,
-    jawandarajbir.react-vscode-extension-pack,
-    ms-vscode.node-debug2,
-    esbenp.prettier-vscode,
-
-    # Testing support
-    alexkrechik.cucumberautocomplete,
-  ]
+  # Python
+  - ms-python.python
+  - ms-python.vscode-pylance
+  - njpwerner.autodocstring
+  - himanoa.python-autopep8
+  - littlefoxteam.vscode-python-test-adapter
