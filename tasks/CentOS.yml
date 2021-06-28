@@ -6,24 +6,22 @@
     baseurl: https://packages.microsoft.com/yumrepos/vscode
     gpgcheck: yes
     gpgkey: https://packages.microsoft.com/keys/microsoft.asc
-  become: yes
+  become: true
 
 - name: Install desktop environment and GUI development tools
   yum:
     name:
       - "@^gnome-desktop-environment"
       - "@Development Tools"
-      - meld
-      - tortoisehg
       - sclo-git25-git-all
       - firefox
       - flatpak
       - yum-plugin-versionlock
-    state: latest
+    state: present
     use_backend: yum
-  become: yes
+  become: true
 
-# Please refer to this issue if you want to have a more up to date visual studio code on 
+# Please refer to this issue if you want to have a more up to date visual studio code on
 # the very obsolete centos 7
 # https://github.com/microsoft/vscode/issues/115784
 - name: Install latest version of visual studio code that works with centos 7
@@ -32,33 +30,33 @@
       - code-1.52.1
     state: present
     use_backend: yum
-  become: yes
+  become: true
 
 #- name: lock the visual studio code version until something happens
 #  community.general.yum_versionlock:
 #    state: present
 #    name: code
-#  become: yes
+#  become: true
 
-- name: Install VS Code extensions
+- name: Install VS Code extensions # noqa: command-instead-of-shell
   shell: code --install-extension {{ extension }}
   loop: "{{ visual_studio_extensions }}"
   loop_control:
     loop_var: extension
-  ignore_errors: true
+  ignore_errors: true # noqa: ignore-errors no-changed-when
 
 - name: Add the flathub flatpak repository remote
   flatpak_remote:
     name: flathub
     state: present
     flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
-  become: yes
-    
+  become: true
+
 - name: Install the pycharm community flatpak system-wide
   flatpak:
     name: com.jetbrains.PyCharm-Community
     state: present
-  become: yes
+  become: true
 
 - name: Set vagrant user for autologin
   ini_file:
@@ -67,7 +65,7 @@
     option: AutomaticLogin
     value: vagrant
     mode: "0644"
-  become: yes
+  become: true
 
 - name: Enable autologin
   ini_file:
@@ -76,30 +74,22 @@
     option: AutomaticLoginEnable
     value: "True"
     mode: "0644"
-  become: yes
+  become: true
 
 - name: Set GUI boot as default boot target
   file: path=/etc/systemd/system/default.target src=/lib/systemd/system/graphical.target state=link
-  become: yes
+  become: true
 
 - name: Enable and start GDM
   systemd:
     name: gdm
     state: started
     enabled: yes
-  become: yes
+  become: true
 
 - name: Increase number of files inotify can look for so that vscode can cope with our megarepo
   sysctl:
     name: fs.inotify.max_user_watches
     value: "524288"
     state: present
-  become: yes
-
-- name: Set meld as default hg diff tool
-  ini_file:
-    path: "/etc/mercurial/hgrc.d/01-ccdc-default.rc"
-    section: ui
-    option: merge
-    value: meld
-  become: yes
+  become: true
