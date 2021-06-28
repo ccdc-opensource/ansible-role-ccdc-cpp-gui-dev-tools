@@ -49,7 +49,7 @@ None.
 
     - hosts: all
       roles:
-        - ccdc-cpp-gui-dev-tools
+        - ccdc.cpp_gui_dev_tools
 
 ## License
 

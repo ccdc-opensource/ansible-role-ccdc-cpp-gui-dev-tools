@@ -5,28 +5,19 @@
       - visual-studio-code
       - firefox
       - araxis-merge
-      - meld
       - tortoisehg
       - pycharm-ce
     state: present
 
 - name: Install VS Code extensions
-  shell: /usr/local/bin/code --install-extension {{ extension }}
+  shell: /usr/local/bin/code --install-extension {{ extension }} # noqa: command-instead-of-shell
   loop: "{{ visual_studio_extensions }}"
   loop_control:
     loop_var: extension
-  ignore_errors: true
+  ignore_errors: true # noqa: ignore-errors no-changed-when
 
 - name: Install Gui tools from Homebrew
   homebrew:
     name:
       - mitmproxy
     state: present
-
-- name: Set meld as default hg diff tool
-  ini_file:
-    path: "/etc/mercurial/hgrc.d/01-ccdc-default.rc"
-    section: ui
-    option: merge
-    value: meld
-  become: yes

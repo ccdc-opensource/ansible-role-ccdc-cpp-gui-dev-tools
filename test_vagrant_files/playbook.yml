@@ -2,6 +2,6 @@
 - hosts: all
   gather_facts: yes
   roles:
-    - role: ccdc-package-manager-configuration
-    - role: ccdc-scm-providers
-    - role: ccdc-cpp-gui-dev-tools
+    - role: ccdc.package_manager_configuration
+    - role: ccdc.scm_providers
+    - role: ccdc.cpp_gui_dev_tools

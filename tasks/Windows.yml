@@ -3,7 +3,6 @@
   win_chocolatey:
     name:
       - araxismerge
-      - meld
       - vscode
       - tortoisehg
       - firefox
@@ -16,10 +15,4 @@
   loop: "{{ visual_studio_extensions }}"
   loop_control:
     loop_var: extension
-  ignore_errors: true
-
-- name: Set meld as default hg diff tool
-  win_copy:
-    src: 02-use-meld.rc
-    dest: "{{ ansible_facts.env['ProgramData'] }}/Mercurial/hgrc.d/01-ccdc-default.rc"
-  become: yes
+  ignore_errors: true # noqa: ignore-errors
