@@ -2,7 +2,6 @@
 visual_studio_extensions:
   # Git/Mercurial
   - eamodio.gitlens
-  - mrcrowl.hg
 
   # C++
   - ms-vscode.cpptools

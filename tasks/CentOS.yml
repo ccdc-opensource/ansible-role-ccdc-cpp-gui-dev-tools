@@ -1,11 +1,17 @@
 ---
-- name: Add Microsoft VS Code repository
+- name: Ensure visual studio code is not installed via rpm
+  yum:
+    name:
+      - code
+    state: absent
+    use_backend: yum
+  become: true
+
+# Example removing a repository and cleaning up metadata cache
+- name: Remove Microsoft VS Code repository (and clean up left-over metadata)
   yum_repository:
     name: vscode
-    description: Microsoft VS Code repo
-    baseurl: https://packages.microsoft.com/yumrepos/vscode
-    gpgcheck: yes
-    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    state: absent
   become: true
 
 - name: Install desktop environment and GUI development tools
@@ -21,30 +27,6 @@
     use_backend: yum
   become: true
 
-# Please refer to this issue if you want to have a more up to date visual studio code on
-# the very obsolete centos 7
-# https://github.com/microsoft/vscode/issues/115784
-- name: Install latest version of visual studio code that works with centos 7
-  yum:
-    name:
-      - code-1.52.1
-    state: present
-    use_backend: yum
-  become: true
-
-#- name: lock the visual studio code version until something happens
-#  community.general.yum_versionlock:
-#    state: present
-#    name: code
-#  become: true
-
-- name: Install VS Code extensions # noqa: command-instead-of-shell
-  shell: code --install-extension {{ extension }}
-  loop: "{{ visual_studio_extensions }}"
-  loop_control:
-    loop_var: extension
-  ignore_errors: true # noqa: ignore-errors no-changed-when
-
 - name: Add the flathub flatpak repository remote
   flatpak_remote:
     name: flathub
@@ -57,6 +39,26 @@
     name: com.jetbrains.PyCharm-Community
     state: present
   become: true
+
+- name: Install the visual studio code flatpak system-wide
+  flatpak:
+    name: com.visualstudio.code
+    state: present
+  become: true
+
+- name: Push basic setup to start bash via flatpak-spawn
+  copy:
+    src: "basic-flatpak-vscode-user-settings.json"
+    dest: "{{ ansible_env.HOME }}/.var/app/com.visualstudio.code/config/Code/User/settings.json"
+    mode: "0600"
+    force: false
+
+- name: Install VS Code extensions # noqa: command-instead-of-shell
+  shell: flatpak run --system com.visualstudio.code code --install-extension {{ extension }}
+  loop: "{{ visual_studio_extensions }}"
+  loop_control:
+    loop_var: extension
+  ignore_errors: true # noqa: ignore-errors no-changed-when
 
 - name: Set vagrant user for autologin
   ini_file:
