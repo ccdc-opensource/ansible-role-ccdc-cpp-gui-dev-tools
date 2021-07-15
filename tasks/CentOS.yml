@@ -46,6 +46,13 @@
     state: present
   become: true
 
+- name: ensure vscode config directory exists
+  file:
+    state: directory
+    recurse: true
+    path: "{{ ansible_env.HOME }}/.var/app/com.visualstudio.code/config/Code/User"
+    mode: "700"
+
 - name: Push basic setup to start bash via flatpak-spawn
   copy:
     src: "basic-flatpak-vscode-user-settings.json"
