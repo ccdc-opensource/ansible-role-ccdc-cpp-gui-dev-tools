@@ -13,7 +13,6 @@
     name:
       - "@^gnome-desktop-environment"
       - "@Development Tools"
-      - sclo-git25-git-all
       - firefox
       - flatpak
       - yum-plugin-versionlock
