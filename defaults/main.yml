@@ -1,8 +1,8 @@
 ---
 visual_studio_extensions:
-  # Git/Mercurial
+  # Git
   - eamodio.gitlens
-  - mrcrowl.hg
+  - mhutchie.git-graph
 
   # C++
   - ms-vscode.cpptools
