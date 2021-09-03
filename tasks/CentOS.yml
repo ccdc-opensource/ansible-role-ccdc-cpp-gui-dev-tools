@@ -20,22 +20,15 @@
     use_backend: yum
   become: true
 
-# Please refer to this issue if you want to have a more up to date visual studio code on
-# the very obsolete centos 7
-# https://github.com/microsoft/vscode/issues/115784
-- name: Install latest version of visual studio code that works with centos 7
+# Visual studio code versions 1.53 till 1.59 included would not work on Centos 7
+# Version 1.60 and above is ok
+- name: Install latest version of visual studio code
   yum:
     name:
-      - code-1.52.1
+      - code
     state: present
     use_backend: yum
   become: true
-
-#- name: lock the visual studio code version until something happens
-#  community.general.yum_versionlock:
-#    state: present
-#    name: code
-#  become: true
 
 - name: Install VS Code extensions # noqa: command-instead-of-shell
   shell: code --install-extension {{ extension }}
