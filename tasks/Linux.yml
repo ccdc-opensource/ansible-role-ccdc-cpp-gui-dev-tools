@@ -1,0 +1,80 @@
+---
+- name: Run distribution-specific tasks
+  include_tasks: "{{ taskfile }}"
+  with_first_found:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+  loop_control:
+    loop_var: taskfile
+
+- name: Install system packages
+  ansible.builtin.package:
+    name: "{{ system_packages }}"
+    state: present
+  become: true
+
+- name: Install Flatpak
+  ansible.builtin.package:
+    name: flatpack
+    state: present
+  become: true
+
+- name: Add the flathub flatpak repository remote
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+  become: true
+
+- name: Install Flatpaks
+  community.general.flatpak:
+    name: "{{ flatpak_packages }}"
+    state: present
+  become: true
+
+- name: Install VS Code extensions # noqa: command-instead-of-shell
+  ansible.builtin.shell: code --install-extension {{ extension }}
+  loop: "{{ visual_studio_extensions }}"
+  loop_control:
+    loop_var: extension
+  ignore_errors: true # noqa: ignore-errors no-changed-when
+
+- name: Set vagrant user for autologin
+  community.general.ini_file:
+    path: /etc/gdm/custom.conf
+    section: daemon
+    option: AutomaticLogin
+    value: vagrant
+    mode: "0644"
+  become: true
+
+- name: Enable autologin
+  community.general.ini_file:
+    path: /etc/gdm/custom.conf
+    section: daemon
+    option: AutomaticLoginEnable
+    value: "True"
+    mode: "0644"
+  become: true
+
+- name: Set GUI boot as default boot target
+  ansible.builtin.file:
+    path: /etc/systemd/system/default.target
+    src: /lib/systemd/system/graphical.target
+    state: link
+  become: true
+
+- name: Enable and start GDM
+  ansible.builtin.systemd:
+    name: gdm
+    state: started
+    enabled: yes
+  become: true
+
+- name: Increase number of files inotify can look for so that vscode can cope with our megarepo
+  ansible.posix.sysctl:
+    name: fs.inotify.max_user_watches
+    value: "524288"
+    state: present
+  become: true

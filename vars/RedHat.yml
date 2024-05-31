@@ -1,0 +1,13 @@
+---
+system_packages:
+  - "@^gnome-desktop-environment"
+  - "@Development Tools"
+  - firefox
+  - yum-plugin-versionlock
+  - code
+
+repositories:
+  - name: Microsoft Visual Studio Code
+    shortname: vscode
+    repo: https://packages.microsoft.com/yumrepos/vscode
+    key: https://packages.microsoft.com/keys/microsoft.asc

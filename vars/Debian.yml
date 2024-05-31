@@ -1,0 +1,17 @@
+---
+repositories:
+  - name: Microsoft Visual Studio Code
+    shortname: vscode
+    repo: deb https://packages.microsoft.com/repos/vscode stable main
+    key: https://packages.microsoft.com/keys/microsoft.asc
+
+system_packages:
+  - code
+  - firefox
+  - flatpak
+  - build-essential
+  - ubuntu-desktop
+  - gnome-software-plugin-flatpak
+
+flatpaks:
+  - com.jetbrains.PyCharm-Community
