@@ -6,9 +6,9 @@ visual_studio_extensions:
 
   # C++
   - ms-vscode.cpptools
-  - timzoet.clangtidygui
-  - notskm.clang-tidy
+  - CS128.cs128-clang-tidy
   - xaver.clang-format
+  - dev-land.resharpervscode
 
   # CMake
   - ms-vscode.cmake-tools
@@ -16,6 +16,6 @@ visual_studio_extensions:
   # Python
   - ms-python.python
   - ms-python.vscode-pylance
+  - ms-python.autopep8
   - njpwerner.autodocstring
-  - himanoa.python-autopep8
-  - littlefoxteam.vscode-python-test-adapter
+  - LittleFoxTeam.vscode-python-test-adapter

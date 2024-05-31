@@ -4,8 +4,7 @@
     name:
       - visual-studio-code
       - firefox
-      - araxis-merge
-      - tortoisehg
+      - google-chrome
       - pycharm-ce
     state: present
 
