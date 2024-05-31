@@ -5,4 +5,5 @@ homebrew_casks:
   - google-chrome
   - pycharm-ce
   - mitmproxy
+  - cmake
 homebrew_packages: []
