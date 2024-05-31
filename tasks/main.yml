@@ -7,7 +7,7 @@
     - "{{ ansible_os_family }}.yml"
     - "{{ ansible_system }}.yml"
   loop_control:
-    loop_var: taskfile
+    loop_var: varfile
 
 - name: Set up GUI developer tools
   ansible.builtin.include_tasks: "{{ taskfile }}"
