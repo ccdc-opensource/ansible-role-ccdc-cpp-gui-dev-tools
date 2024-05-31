@@ -16,7 +16,7 @@
 
 - name: Install Flatpak
   ansible.builtin.package:
-    name: flatpack
+    name: flatpak
     state: present
   become: true
 
