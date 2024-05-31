@@ -1,66 +1,18 @@
 ---
-- name: Add Microsoft deb repo key
-  apt_key:
-    url: https://packages.microsoft.com/keys/microsoft.asc
-    state: present
+- name: Add signing key for repo {{ repo.name }}
   become: true
-
-- name: Add Microsoft VS Code repository
-  apt_repository:
-    repo: deb https://packages.microsoft.com/repos/vscode stable main
+  ansible.builtin.apt_key:
+    url: "{{ repo.key }}"
     state: present
-  become: true
-
-- name: Install developer productivity gui packages
-  apt:
-    name:
-      - code
-      - firefox
-      - build-essential
-      - ubuntu-desktop
-    state: present
-  become: true
-
-- name: Install VS Code extensions
-  shell: code --install-extension {{ extension }} # noqa: command-instead-of-shell
-  loop: "{{ visual_studio_extensions }}"
+  loop: "{{ repositories }}"
   loop_control:
-    loop_var: extension
-  ignore_errors: true # noqa: ignore-errors no-changed-when
+    loop_var: repo
 
-# Ubuntu 16.04 onwards comes with snap installed by default
-- name: Install developer productivity GUI tools from snap
-  snap:
-    name:
-      - pycharm-community
-    classic: yes
+- name: Add repository {{ repo.name }}
+  ansible.builtin.apt_repository:
+    repo: "{{ repo.repo }}"
+    state: present
   become: true
-
-- name: Set vagrant user for autologin
-  ini_file:
-    path: /etc/gdm/custom.conf
-    section: daemon
-    option: AutomaticLogin
-    value: vagrant
-    mode: "0644"
-  become: true
-
-- name: enable autologin
-  ini_file:
-    path: /etc/gdm/custom.conf
-    section: daemon
-    option: AutomaticLoginEnable
-    value: "True"
-    mode: "0644"
-  become: true
-
-- name: set graphic boot as default boot target
-  file: path=/etc/systemd/system/default.target src=/lib/systemd/system/graphical.target state=link
-  become: true
-
-- name: Enable and start GDM
-  systemd:
-    name: gdm
-    state: started
-    enabled: yes
-  become: true
+  loop: "{{ repositories }}"
+  loop_control:
+    loop_var: repo

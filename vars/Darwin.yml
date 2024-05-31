@@ -1,0 +1,9 @@
+---
+homebrew_casks:
+  - visual-studio-code
+  - firefox
+  - google-chrome
+  - pycharm-ce
+  - mitmproxy
+  - cmake
+homebrew_packages: []
