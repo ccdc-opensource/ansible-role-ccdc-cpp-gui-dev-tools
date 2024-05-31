@@ -7,7 +7,7 @@ galaxy_info:
   description: GUI development tool setup for CCDC build machines.
   company: The Cambridge Crystallographic Data Centre
   license: "license (BSD, MIT)"
-  min_ansible_version: 2.9
+  min_ansible_version: "2.9"
   platforms:
     - name: EL
       versions:
