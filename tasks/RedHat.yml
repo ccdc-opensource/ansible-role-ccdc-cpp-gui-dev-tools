@@ -1,9 +1,10 @@
----
-- name: Add repository for {{ repo.name }}
+- name: Add YUM repositories
   ansible.builtin.yum_repository:
-    name: "{{ repo.shortname }}"
-    description: "{{ repo.name }}"
-    baseurl: "{{ repo.repo }}"
+    name: "{{ item.shortname }}"
+    description: "{{ item.name }}"
+    baseurl: "{{ item.repo }}"
     gpgcheck: yes
-    gpgkey: "{{ repo.key }}"
+    gpgkey: "{{ item.key }}"
+    enabled: yes
+  loop: "{{ repositories }}"
   become: true
