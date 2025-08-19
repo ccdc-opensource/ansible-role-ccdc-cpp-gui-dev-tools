@@ -3,8 +3,10 @@
     name: "{{ item.shortname }}"
     description: "{{ item.name }}"
     baseurl: "{{ item.repo }}"
-    gpgcheck: yes
+    gpgcheck: true
+    repo_gpgcheck: true
     gpgkey: "{{ item.key }}"
-    enabled: yes
+    enabled: true
+    state: present
   loop: "{{ repositories }}"
   become: true
